@@ -9,4 +9,25 @@
 
     // Only format the selection if there's one available.
     "format_selection_only": true,
+
+    "format_option": {
+        "space_after_if": true,
+        "space_after_switch": true,
+        "space_after_while": true,
+        "space_before_start_angle_bracket": true,
+        "space_after_end_angle_bracket": true,
+        "space_after_start_bracket": false,
+        "space_before_end_bracket": false,
+        "extra_padding_for_case_statement": true,
+        "glue_amperscore": true,
+        "change_shell_comment_to_double_slashes_comment": true,
+        "indent_with_tab": true,
+        "padding_char_count": "1",
+        "force_large_php_code_tag": true,
+        "force_true_false_null_contant_lowercase": true,
+        "comment_rendering_style": "PEAR",
+        "align_equal_statements": false,
+        "optimize_eol": true,
+        "one_true_brace_function_declaration": false,
+    },
 }

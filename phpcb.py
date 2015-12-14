@@ -73,10 +73,55 @@ class PhpCbCommand(sublime_plugin.TextCommand):
         print("Using phpCB path on '" + platform + "': " + phpcb)
         return phpcb
 
+    def get_phpcb_option(self, cmd):
+        options = sublime.load_settings("phpcb.sublime-settings").get('format_option', "")
+        if options.get('space_after_if', "true"):
+            cmd.insert(1,"--space-after-if")
+        if options.get('space_after_switch', "true"):
+            cmd.insert(1,"--space-after-switch")
+        if options.get('space_after_while', "true"):
+            cmd.insert(1,"--space-after-while")
+        if options.get('space_before_start_angle_bracket', "true"):
+            cmd.insert(1,"--space-before-start-angle-bracket")
+        if options.get('space_after_end_angle_bracket', "true"):
+            cmd.insert(1,"--space-after-end-angle-bracket")
+        if options.get('space_after_start_bracket', "false"):
+            cmd.insert(1,"--space-after-start-bracket")
+        if options.get('space_before_end_bracket', "false"):
+            cmd.insert(1,"--space-before-end-bracket")
+        if options.get('extra_padding_for_case_statement', "true"):
+            cmd.insert(1,"--extra-padding-for-case-statement")
+        if options.get('glue_amperscore', "true"):
+            cmd.insert(1,"--glue-amperscore")
+        if options.get('change_shell_comment_to_double_slashes_comment', "true"):
+            cmd.insert(1,"--change-shell-comment-to-double-slashes-comment")
+        if options.get('indent_with_tab', "true"):
+            cmd.insert(1,"--indent-with-tab")
+        if options.get('padding_char_count'):
+            if int(options.get('padding_char_count'))>0:
+                cmd.insert(1,"--padding-char-count")
+                cmd.insert(2,options.get('padding_char_count'))
+        if options.get('force_large_php_code_tag', "true"):
+            cmd.insert(1,"--force-large-php-code-tag")
+        if options.get('force_true_false_null_contant_lowercase', "true"):
+            cmd.insert(1,"--force-true-false-null-contant-lowercase")
+        if options.get('comment_rendering_style'):
+            cmd.insert(1,"--comment-rendering-style")
+            cmd.insert(2,options.get('comment_rendering_style'))
+        if options.get('align_equal_statements', "false"):
+            cmd.insert(1,"--align-equal-statements")
+        if options.get('optimize_eol', "true"):
+            cmd.insert(1,"--optimize-eol")
+        if options.get('one_true_brace_function_declaration', "false"):
+            cmd.insert(1,"--one-true-brace-function-declaration")
+        return cmd
+
+
     def phpcb(self, temp_file_path):
         try:
             phpcb_path = self.get_phpcb_path()
             cmd = [phpcb_path, temp_file_path]
+            cmd = self.get_phpcb_option(cmd)
             output = self.get_output(cmd)
 
             return output
@@ -106,6 +151,7 @@ class PhpCbCommand(sublime_plugin.TextCommand):
         else:
             # Handle all OS in Python 3.
             run = '"' + '" "'.join(cmd) + '"'
+            print("run is:"+run)
             return subprocess.check_output(run, stderr=subprocess.STDOUT, shell=True, env=os.environ)
 
     def refold_folded_regions(self, folded_regions_content, entire_file_contents):
