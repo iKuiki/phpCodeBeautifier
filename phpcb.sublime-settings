@@ -1,0 +1,12 @@
+{
+    "path": {
+        "windows": "./phpCB/phpCB.exe",
+        "linux": "/usr/bin/phpcb",
+        "osx": "/usr/local/bin/phpcb"
+    },
+    "on_save": false,
+    "on_load": false,
+
+    // Only format the selection if there's one available.
+    "format_selection_only": true,
+}
